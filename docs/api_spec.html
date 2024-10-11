@@ -701,7 +701,7 @@
             defs["Output"] = {
   "type" : "object",
   "properties" : {
-    "cash" : {
+    "waitingNumber" : {
       "type" : "integer",
       "format" : "int32"
     }
@@ -1071,22 +1071,22 @@ except ApiException as e:
 
 
                           <h2>Responses</h2>
-                            <h3> Status: 200 - OK </h3>
+                            <h3> Status: 201 - 토큰 생성 성공 </h3>
 
                             <ul class="nav nav-tabs nav-tabs-examples" >
                                 <li class="active">
-                                  <a data-toggle="tab" href="#responses-createQueue-200-schema">Schema</a>
+                                  <a data-toggle="tab" href="#responses-createQueue-201-schema">Schema</a>
                                 </li>
 
                             </ul>
 
                             <div class="tab-content" style='margin-bottom: 10px;'>
-                                <div class="tab-pane active" id="responses-createQueue-200-schema">
-                                  <div id='responses-createQueue-200-schema-200' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                <div class="tab-pane active" id="responses-createQueue-201-schema">
+                                  <div id='responses-createQueue-201-schema-201' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
                                     <script>
                                       $(document).ready(function() {
                                         var schemaWrapper = {
-  "description" : "OK",
+  "description" : "토큰 생성 성공",
   "content" : {
     "*/*" : {
       "schema" : {
@@ -1108,14 +1108,110 @@ except ApiException as e:
 
                                         //console.log(JSON.stringify(schema));
                                         var view = new JSONSchemaView(schema, 3);
-                                        $('#responses-createQueue-200-schema-data').val(stringify(schema));
-                                        var result = $('#responses-createQueue-200-schema-200');
+                                        $('#responses-createQueue-201-schema-data').val(stringify(schema));
+                                        var result = $('#responses-createQueue-201-schema-201');
                                         result.empty();
                                         result.append(view.render());
                                       });
                                     </script>
                                   </div>
-                                  <input id='responses-createQueue-200-schema-data' type='hidden' value=''></input>
+                                  <input id='responses-createQueue-201-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                            <h3> Status: 400 - 잘못된 요청 </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-createQueue-400-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-createQueue-400-schema">
+                                  <div id='responses-createQueue-400-schema-400' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "잘못된 요청",
+  "content" : {
+    "*/*" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/Output"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["*/*"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-createQueue-400-schema-data').val(stringify(schema));
+                                        var result = $('#responses-createQueue-400-schema-400');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-createQueue-400-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                            <h3> Status: 500 - 서버 오류 </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-createQueue-500-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-createQueue-500-schema">
+                                  <div id='responses-createQueue-500-schema-500' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "서버 오류",
+  "content" : {
+    "*/*" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/Output"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["*/*"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-createQueue-500-schema-data').val(stringify(schema));
+                                        var result = $('#responses-createQueue-500-schema-500');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-createQueue-500-schema-data' type='hidden' value=''></input>
                                 </div>
                             </div>
 
@@ -1408,7 +1504,7 @@ except ApiException as e:
 
 
                           <h2>Responses</h2>
-                            <h3> Status: 200 - OK </h3>
+                            <h3> Status: 200 - 대기열 조회 성공 </h3>
 
                             <ul class="nav nav-tabs nav-tabs-examples" >
                                 <li class="active">
@@ -1423,7 +1519,7 @@ except ApiException as e:
                                     <script>
                                       $(document).ready(function() {
                                         var schemaWrapper = {
-  "description" : "OK",
+  "description" : "대기열 조회 성공",
   "content" : {
     "*/*" : {
       "schema" : {
@@ -1453,6 +1549,102 @@ except ApiException as e:
                                     </script>
                                   </div>
                                   <input id='responses-findQueue-200-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                            <h3> Status: 400 - 잘못된 요청 </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-findQueue-400-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-findQueue-400-schema">
+                                  <div id='responses-findQueue-400-schema-400' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "잘못된 요청",
+  "content" : {
+    "*/*" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/Output"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["*/*"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-findQueue-400-schema-data').val(stringify(schema));
+                                        var result = $('#responses-findQueue-400-schema-400');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-findQueue-400-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                            <h3> Status: 500 - 서버 오류 </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-findQueue-500-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-findQueue-500-schema">
+                                  <div id='responses-findQueue-500-schema-500' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "서버 오류",
+  "content" : {
+    "*/*" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/Output"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["*/*"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-findQueue-500-schema-data').val(stringify(schema));
+                                        var result = $('#responses-findQueue-500-schema-500');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-findQueue-500-schema-data' type='hidden' value=''></input>
                                 </div>
                             </div>
 
@@ -1783,7 +1975,7 @@ except ApiException as e:
                             </table>
 
                           <h2>Responses</h2>
-                            <h3> Status: 200 - OK </h3>
+                            <h3> Status: 200 - 예약 가능한 날짜 조회 성공 </h3>
 
                             <ul class="nav nav-tabs nav-tabs-examples" >
                                 <li class="active">
@@ -1798,7 +1990,7 @@ except ApiException as e:
                                     <script>
                                       $(document).ready(function() {
                                         var schemaWrapper = {
-  "description" : "OK",
+  "description" : "예약 가능한 날짜 조회 성공",
   "content" : {
     "*/*" : {
       "schema" : {
@@ -1828,6 +2020,102 @@ except ApiException as e:
                                     </script>
                                   </div>
                                   <input id='responses-findReservationDate-200-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                            <h3> Status: 400 - 잘못된 요청 </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-findReservationDate-400-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-findReservationDate-400-schema">
+                                  <div id='responses-findReservationDate-400-schema-400' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "잘못된 요청",
+  "content" : {
+    "*/*" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/Output"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["*/*"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-findReservationDate-400-schema-data').val(stringify(schema));
+                                        var result = $('#responses-findReservationDate-400-schema-400');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-findReservationDate-400-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                            <h3> Status: 500 - 서버 오류 </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-findReservationDate-500-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-findReservationDate-500-schema">
+                                  <div id='responses-findReservationDate-500-schema-500' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "서버 오류",
+  "content" : {
+    "*/*" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/Output"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["*/*"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-findReservationDate-500-schema-data').val(stringify(schema));
+                                        var result = $('#responses-findReservationDate-500-schema-500');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-findReservationDate-500-schema-data' type='hidden' value=''></input>
                                 </div>
                             </div>
 
@@ -1888,7 +2176,7 @@ public class ConcertControllerApiExample {
         Long concertScheduleId = 789; // Long | 콘서트 일정 ID
         date concertOpenDate = 2013-10-20; // date | 콘서트 시작 날짜
         try {
-            array[Output] result = apiInstance.findReservationSeat(authorization, concertScheduleId, concertOpenDate);
+            Output result = apiInstance.findReservationSeat(authorization, concertScheduleId, concertOpenDate);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ConcertControllerApi#findReservationSeat");
@@ -1909,7 +2197,7 @@ public class ConcertControllerApiExample {
         Long concertScheduleId = 789; // Long | 콘서트 일정 ID
         date concertOpenDate = 2013-10-20; // date | 콘서트 시작 날짜
         try {
-            array[Output] result = apiInstance.findReservationSeat(authorization, concertScheduleId, concertOpenDate);
+            Output result = apiInstance.findReservationSeat(authorization, concertScheduleId, concertOpenDate);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ConcertControllerApi#findReservationSeat");
@@ -1933,7 +2221,7 @@ ConcertControllerApi *apiInstance = [[ConcertControllerApi alloc] init];
 [apiInstance findReservationSeatWith:authorization
     concertScheduleId:concertScheduleId
     concertOpenDate:concertOpenDate
-              completionHandler: ^(array[Output] output, NSError* error) {
+              completionHandler: ^(Output output, NSError* error) {
                             if (output) {
                                 NSLog(@"%@", output);
                             }
@@ -1988,7 +2276,7 @@ namespace Example
             try
             {
                 // 좌석 상태 조회
-                array[Output] result = apiInstance.findReservationSeat(authorization, concertScheduleId, concertOpenDate);
+                Output result = apiInstance.findReservationSeat(authorization, concertScheduleId, concertOpenDate);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -2161,7 +2449,7 @@ except ApiException as e:
                             </table>
 
                           <h2>Responses</h2>
-                            <h3> Status: 200 - OK </h3>
+                            <h3> Status: 200 - 좌석 상태 조회 성공 </h3>
 
                             <ul class="nav nav-tabs nav-tabs-examples" >
                                 <li class="active">
@@ -2176,15 +2464,11 @@ except ApiException as e:
                                     <script>
                                       $(document).ready(function() {
                                         var schemaWrapper = {
-  "description" : "OK",
+  "description" : "좌석 상태 조회 성공",
   "content" : {
     "*/*" : {
       "schema" : {
-        "type" : "array",
-        "items" : {
-          "$ref" : "#/components/schemas/Output"
-        },
-        "x-content-type" : "*/*"
+        "$ref" : "#/components/schemas/Output"
       }
     }
   }
@@ -2210,6 +2494,110 @@ except ApiException as e:
                                     </script>
                                   </div>
                                   <input id='responses-findReservationSeat-200-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                            <h3> Status: 400 - 잘못된 요청 </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-findReservationSeat-400-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-findReservationSeat-400-schema">
+                                  <div id='responses-findReservationSeat-400-schema-400' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "잘못된 요청",
+  "content" : {
+    "*/*" : {
+      "schema" : {
+        "type" : "array",
+        "items" : {
+          "$ref" : "#/components/schemas/Output"
+        },
+        "x-content-type" : "*/*"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["*/*"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-findReservationSeat-400-schema-data').val(stringify(schema));
+                                        var result = $('#responses-findReservationSeat-400-schema-400');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-findReservationSeat-400-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                            <h3> Status: 500 - 서버 오류 </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-findReservationSeat-500-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-findReservationSeat-500-schema">
+                                  <div id='responses-findReservationSeat-500-schema-500' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "서버 오류",
+  "content" : {
+    "*/*" : {
+      "schema" : {
+        "type" : "array",
+        "items" : {
+          "$ref" : "#/components/schemas/Output"
+        },
+        "x-content-type" : "*/*"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["*/*"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-findReservationSeat-500-schema-data').val(stringify(schema));
+                                        var result = $('#responses-findReservationSeat-500-schema-500');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-findReservationSeat-500-schema-data' type='hidden' value=''></input>
                                 </div>
                             </div>
 
@@ -2589,22 +2977,22 @@ except ApiException as e:
 
 
                           <h2>Responses</h2>
-                            <h3> Status: 200 - OK </h3>
+                            <h3> Status: 201 - 좌석 구매 성공 </h3>
 
                             <ul class="nav nav-tabs nav-tabs-examples" >
                                 <li class="active">
-                                  <a data-toggle="tab" href="#responses-purchaseSeat-200-schema">Schema</a>
+                                  <a data-toggle="tab" href="#responses-purchaseSeat-201-schema">Schema</a>
                                 </li>
 
                             </ul>
 
                             <div class="tab-content" style='margin-bottom: 10px;'>
-                                <div class="tab-pane active" id="responses-purchaseSeat-200-schema">
-                                  <div id='responses-purchaseSeat-200-schema-200' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                <div class="tab-pane active" id="responses-purchaseSeat-201-schema">
+                                  <div id='responses-purchaseSeat-201-schema-201' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
                                     <script>
                                       $(document).ready(function() {
                                         var schemaWrapper = {
-  "description" : "OK",
+  "description" : "좌석 구매 성공",
   "content" : {
     "*/*" : {
       "schema" : {
@@ -2626,14 +3014,110 @@ except ApiException as e:
 
                                         //console.log(JSON.stringify(schema));
                                         var view = new JSONSchemaView(schema, 3);
-                                        $('#responses-purchaseSeat-200-schema-data').val(stringify(schema));
-                                        var result = $('#responses-purchaseSeat-200-schema-200');
+                                        $('#responses-purchaseSeat-201-schema-data').val(stringify(schema));
+                                        var result = $('#responses-purchaseSeat-201-schema-201');
                                         result.empty();
                                         result.append(view.render());
                                       });
                                     </script>
                                   </div>
-                                  <input id='responses-purchaseSeat-200-schema-data' type='hidden' value=''></input>
+                                  <input id='responses-purchaseSeat-201-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                            <h3> Status: 400 - 잘못된 요청 </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-purchaseSeat-400-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-purchaseSeat-400-schema">
+                                  <div id='responses-purchaseSeat-400-schema-400' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "잘못된 요청",
+  "content" : {
+    "*/*" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/Output"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["*/*"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-purchaseSeat-400-schema-data').val(stringify(schema));
+                                        var result = $('#responses-purchaseSeat-400-schema-400');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-purchaseSeat-400-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                            <h3> Status: 500 - 서버 오류 </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-purchaseSeat-500-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-purchaseSeat-500-schema">
+                                  <div id='responses-purchaseSeat-500-schema-500' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "서버 오류",
+  "content" : {
+    "*/*" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/Output"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["*/*"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-purchaseSeat-500-schema-data').val(stringify(schema));
+                                        var result = $('#responses-purchaseSeat-500-schema-500');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-purchaseSeat-500-schema-data' type='hidden' value=''></input>
                                 </div>
                             </div>
 
@@ -2950,7 +3434,23 @@ except ApiException as e:
 
 
                           <h2>Responses</h2>
-                            <h3> Status: 200 - OK </h3>
+                            <h3> Status: 201 - 좌석 예약 성공 </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 400 - 잘못된 요청 </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 500 - 서버 오류 </h3>
 
                             <ul class="nav nav-tabs nav-tabs-examples" >
                             </ul>
