@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: hhplus-concert
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:~/test
+    #    url: jdbc:h2:mem:test
+    username: sa
+    password: 1234
+  jpa:
+    show-sql: true
+    hibernate:
+      #      ddl-auto: update
+      #      ddl-auto: create
+      ddl-auto: create-drop
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+    enabled: true
+  info:
+    title: "HHPlus Concert API"
+    version: "v1"
+    description: "HHPlus Concert API 명세서"
+server:
+  port: 8081
