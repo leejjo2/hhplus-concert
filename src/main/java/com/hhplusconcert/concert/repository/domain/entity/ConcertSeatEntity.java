@@ -1,6 +1,6 @@
 package com.hhplusconcert.concert.repository.domain.entity;
 
-import com.hhplusconcert.concert.repository.domain.ConcertSchedule;
+import com.hhplusconcert.concert.repository.domain.ConcertSeat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,35 +19,27 @@ public class ConcertSeatEntity {
     private int amount;
     private int position;
 
-    public static ConcertSchedule toDomain(ConcertScheduleEntity entity) {
+    public static ConcertSeat toDomain(ConcertSeatEntity entity) {
         if (entity == null) {
             return null;
         }
-        return new ConcertSchedule(
+        return new ConcertSeat(
                 entity.getId(),
-                entity.getConcertId(),
-                entity.getOpenDate(),
-                entity.getStartAt(),
-                entity.getEndAt(),
-                entity.getTotalSeat(),
-                entity.getAvailableSeat(),
-                entity.getStatus()
+                entity.getConcertScheduleId(),
+                entity.getAmount(),
+                entity.getPosition()
         );
     }
 
-    public static ConcertScheduleEntity fromDomain(ConcertSchedule domain) {
+    public static ConcertSeatEntity fromDomain(ConcertSeat domain) {
         if (domain == null) {
             return null;
         }
-        return new ConcertScheduleEntity(
+        return new ConcertSeatEntity(
                 domain.getId(),
-                domain.getConcertId(),
-                domain.getOpenDate(),
-                domain.getStartAt(),
-                domain.getEndAt(),
-                domain.getTotalSeat(),
-                domain.getAvailableSeat(),
-                domain.getStatus()
+                domain.getConcertScheduleId(),
+                domain.getAmount(),
+                domain.getPosition()
         );
     }
 }
