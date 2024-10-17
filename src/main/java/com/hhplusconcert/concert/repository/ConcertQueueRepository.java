@@ -64,14 +64,14 @@ public class ConcertQueueRepository {
     public List<ConcertQueue> findByConcertScheduleIdAndStatusOrderByEnteredAtAsc(
             Long concertScheduleId, ConcertQueueStatus status, int limit, int offset
     ) {
-        return concertQueueJpaRepository.findByConcertScheduleIdAndStatusOrderByEnteredAtAsc(concertScheduleId, status, limit, offset)
+        return concertQueueJpaRepository.findByConcertScheduleIdAndStatusOrderByEnteredAtAsc(concertScheduleId, status.name(), limit, offset)
                 .stream().map(ConcertQueueEntity::toDomain).collect(Collectors.toList());
     }
 
     public List<ConcertQueue> findByStatusAndExpiredAtBefore(
             ConcertQueueStatus status, LocalDateTime now
     ) {
-        return concertQueueJpaRepository.findByStatusAndExpiredAtBefore(status, now)
+        return concertQueueJpaRepository.findByStatusAndExpiredAtBefore(status.name(), now)
                 .stream().map(ConcertQueueEntity::toDomain).collect(Collectors.toList());
     }
 

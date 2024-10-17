@@ -34,14 +34,14 @@ public interface ConcertQueueJpaRepository extends JpaRepository<ConcertQueueEnt
     @Query(value = "SELECT * FROM concert_queue WHERE concert_schedule_id = ?1 AND status = ?2 ORDER BY entered_at ASC LIMIT ?3 OFFSET ?4", nativeQuery = true)
     List<ConcertQueueEntity> findByConcertScheduleIdAndStatusOrderByEnteredAtAsc(
             Long concertScheduleId,
-            ConcertQueueStatus status,
+            String status,
             int limit,
             int offset
     );
 
     @Query(value = "SELECT * FROM concert_queue WHERE status = ?1 AND expired_at < ?2", nativeQuery = true)
     List<ConcertQueueEntity> findByStatusAndExpiredAtBefore(
-            ConcertQueueStatus status,
+            String status,
             LocalDateTime now
     );
 }
