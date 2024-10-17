@@ -12,7 +12,7 @@ erDiagram
         int id PK "PK(대기 번호)"
         int user_id FK "유저 ID"
         int concert_schedule_id FK "콘서트 일정 ID"
-        varchar token "대기열 토큰"
+%%        varchar token "대기열 토큰"
         varchar status "대기열 상태(WAITING, PROGRESS, DONE, EXPIRED)"
         LocalDateTime entered_at "대기열 진입 시간"
         LocalDateTime expired_at "대기열 만료 시간"
