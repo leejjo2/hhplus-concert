@@ -20,6 +20,7 @@ public class PaymentEntity {
     private Long id;
     private Long userId;
     private int price;
+    @Enumerated(EnumType.STRING)
     private PaymentStatus status;
     private LocalDateTime createdAt;
 

@@ -21,6 +21,7 @@ public class ConcertQueueEntity {
     private Long userId;
     private Long concertScheduleId;
     private String token;
+    @Enumerated(EnumType.STRING)
     private ConcertQueueStatus status;
     private LocalDateTime enteredAt;
     private LocalDateTime expiredAt;

@@ -23,8 +23,7 @@ public class ConcertScheduleEntity {
     private LocalDate openDate;
     private LocalDateTime startAt;
     private LocalDateTime endAt;
-    private int totalSeat;
-    private int availableSeat;
+    @Enumerated(EnumType.STRING)
     private ConcertScheduleStatus status;
 
     public static ConcertSchedule toDomain(ConcertScheduleEntity entity) {
@@ -37,8 +36,6 @@ public class ConcertScheduleEntity {
                 entity.getOpenDate(),
                 entity.getStartAt(),
                 entity.getEndAt(),
-                entity.getTotalSeat(),
-                entity.getAvailableSeat(),
                 entity.getStatus()
         );
     }
@@ -53,8 +50,6 @@ public class ConcertScheduleEntity {
                 domain.getOpenDate(),
                 domain.getStartAt(),
                 domain.getEndAt(),
-                domain.getTotalSeat(),
-                domain.getAvailableSeat(),
                 domain.getStatus()
         );
     }

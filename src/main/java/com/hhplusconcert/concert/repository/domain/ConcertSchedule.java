@@ -19,8 +19,6 @@ public class ConcertSchedule {
     private LocalDate openDate;
     private LocalDateTime startAt;
     private LocalDateTime endAt;
-    private int totalSeat;
-    private int availableSeat;
     private ConcertScheduleStatus status;
 
 }

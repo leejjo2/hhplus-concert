@@ -22,6 +22,7 @@ public class ReservationEntity {
     private Long concertScheduleId;
     private Long seatId;
     private Long paymentId;
+    @Enumerated(EnumType.STRING)
     private ReservationStatus status;
     private LocalDateTime reservedAt;
 
