@@ -1,7 +1,7 @@
 package com.hhplusconcert.concert.repository.domain.vo;
 
 public enum ConcertQueueStatus {
-    WATING,
+    WAITING,
     PROGRESS,
     //    DONE,
     EXPIRED;
