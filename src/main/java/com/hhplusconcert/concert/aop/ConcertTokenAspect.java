@@ -16,7 +16,7 @@ public class ConcertTokenAspect {
     }
 
     @Before("@annotation(com.hhplusconcert.concert.aop.ConcertTokenRequired)")
-    public void checkConcertToken(){
+    public void checkConcertToken() {
         String token = request.getHeader(QUEUE_TOKEN);
 
         if (token == null || token.isEmpty()) {

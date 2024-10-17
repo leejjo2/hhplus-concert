@@ -10,7 +10,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 public class QueueTokenInterceptor implements HandlerInterceptor {
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler,
-                                 @Nullable Exception ex) throws Exception {
+                                @Nullable Exception ex) throws Exception {
         QueueTokenHolder.clearToken();
     }
 }
