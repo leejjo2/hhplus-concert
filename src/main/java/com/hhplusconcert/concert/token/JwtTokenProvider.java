@@ -47,7 +47,7 @@ public class JwtTokenProvider {
         } catch (JWTVerificationException e) {
             // 검증 실패 시 예외 처리
             System.err.println("Invalid Token: " + e.getMessage());
-            throw new RuntimeException();
+            throw new RuntimeException("토큰 검증 중 예외가 발생했습니다.");
         }
     }
 
