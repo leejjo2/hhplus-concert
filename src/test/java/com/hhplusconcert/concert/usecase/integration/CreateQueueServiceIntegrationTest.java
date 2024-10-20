@@ -48,14 +48,16 @@ class CreateQueueServiceIntegrationTest {
             throw new AssertionError("토큰 검증 중 예외가 발생했습니다.", e);
         }
 
+        String tokenId = jwtTokenProvider.getClaimValue(token, JwtTokenProvider.TOKEN_ID);
+
         // 콘서트 큐 대기열이 생성되었는지 검증 (Optional 대신 객체로 직접 받음)
-        ConcertQueue concertQueue = concertQueueRepository.findByToken(token);
+        ConcertQueue concertQueue = concertQueueRepository.findByToken(tokenId);
         assertThat(concertQueue).isNotNull(); // 대기열이 null이 아님을 검증
 
         assertThat(concertQueue.getUserId()).isEqualTo(input.getUserId());
         assertThat(concertQueue.getConcertScheduleId()).isEqualTo(concertScheduleId);
         assertThat(concertQueue.getStatus()).isEqualTo(ConcertQueueStatus.WAITING);
         assertThat(concertQueue.getEnteredAt()).isBeforeOrEqualTo(LocalDateTime.now());
-        assertThat(concertQueue.getToken()).isEqualTo(token);
+        assertThat(concertQueue.getToken()).isEqualTo(tokenId);
     }
 }
