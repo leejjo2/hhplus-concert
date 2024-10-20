@@ -36,7 +36,7 @@ public class JwtTokenProvider {
     }
 
     // JWT 검증 메서드
-    public void verifyToken(String token) {
+    public boolean verifyToken(String token) {
         try {
             JWTVerifier verifier = JWT.require(Algorithm.RSA256(PUBLIC_KEY, PRIVATE_KEY))
                     .build();
@@ -44,9 +44,10 @@ public class JwtTokenProvider {
             verifier.verify(token);
             log.info("Token is valid.");
 
+            return true;
         } catch (JWTVerificationException e) {
             // 검증 실패 시 예외 처리
-            System.err.println("Invalid Token: " + e.getMessage());
+            log.info("Invalid Token: " + e.getMessage());
             throw new RuntimeException("토큰 검증 중 예외가 발생했습니다.");
         }
     }
