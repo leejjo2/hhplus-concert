@@ -22,7 +22,6 @@ public class FindQueueService {
     public Output execute(Long concertScheduleId) {
 
         String token = QueueTokenHolder.getToken();
-        jwtTokenProvider.verifyToken(token);
         String tokenId = jwtTokenProvider.getClaimValue(token, JwtTokenProvider.TOKEN_ID);
 
         log.info("tokenId : {}", tokenId);

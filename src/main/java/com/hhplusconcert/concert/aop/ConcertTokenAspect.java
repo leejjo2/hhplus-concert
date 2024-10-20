@@ -1,5 +1,6 @@
 package com.hhplusconcert.concert.aop;
 
+import com.hhplusconcert.concert.token.JwtTokenProvider;
 import jakarta.servlet.http.HttpServletRequest;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -10,9 +11,11 @@ import org.springframework.stereotype.Component;
 public class ConcertTokenAspect {
     public static final String QUEUE_TOKEN = "queue-token";
     private final HttpServletRequest request;
+    private final JwtTokenProvider jwtTokenProvider;
 
-    public ConcertTokenAspect(HttpServletRequest request) {
+    public ConcertTokenAspect(HttpServletRequest request, JwtTokenProvider jwtTokenProvider) {
         this.request = request;
+        this.jwtTokenProvider = jwtTokenProvider;
     }
 
     @Before("@annotation(com.hhplusconcert.concert.aop.ConcertTokenRequired)")
@@ -34,7 +37,7 @@ public class ConcertTokenAspect {
 
     private boolean isValidToken(String token) {
         // JWT 토큰 검증 로직
-        return true;
+        return jwtTokenProvider.verifyToken(token);
     }
 
 }
