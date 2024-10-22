@@ -1,6 +1,7 @@
 package com.hhplusconcert.concert.aop;
 
 import com.hhplusconcert.concert.token.JwtTokenProvider;
+import com.hhplusconcert.shared.SharedHttpHeader;
 import jakarta.servlet.http.HttpServletRequest;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -9,7 +10,6 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Component
 public class ConcertTokenAspect {
-    public static final String QUEUE_TOKEN = "queue-token";
     private final HttpServletRequest request;
     private final JwtTokenProvider jwtTokenProvider;
 
@@ -20,7 +20,7 @@ public class ConcertTokenAspect {
 
     @Before("@annotation(com.hhplusconcert.concert.aop.ConcertTokenRequired)")
     public void checkConcertToken() {
-        String token = request.getHeader(QUEUE_TOKEN);
+        String token = request.getHeader(SharedHttpHeader.X_QUEUE_TOKEN);
 
         if (token == null || token.isEmpty()) {
             throw new RuntimeException("토큰이 존재하지 않습니다. ");
