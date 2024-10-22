@@ -45,7 +45,7 @@ public class FindReservationSeatService {
     @AllArgsConstructor
     @Getter
     public static class Output {
-        Long id;
+        Long seatId;
         Integer position;
         Integer price;
         boolean available;

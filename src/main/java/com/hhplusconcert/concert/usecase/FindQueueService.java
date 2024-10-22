@@ -22,10 +22,10 @@ public class FindQueueService {
     public Output execute(Long concertScheduleId) {
 
         String token = QueueTokenHolder.getToken();
-        String tokenId = jwtTokenProvider.getClaimValue(token, JwtTokenProvider.TOKEN_ID);
+        String queueTokenId = jwtTokenProvider.getClaimValue(token, JwtTokenProvider.QUEUE_TOKEN_ID);
 
-        log.info("tokenId : {}", tokenId);
-        ConcertQueue concertQueue = concertQueueRepository.findByToken(tokenId);
+        log.info("tokenId : {}", queueTokenId);
+        ConcertQueue concertQueue = concertQueueRepository.findByToken(queueTokenId);
         switch (concertQueue.getStatus()) {
             case WAITING -> {
                 Long before = concertQueueRepository.countByConcertScheduleIdAndStatusAndEnteredAtBefore(concertScheduleId, ConcertQueueStatus.WAITING, concertQueue.getEnteredAt());

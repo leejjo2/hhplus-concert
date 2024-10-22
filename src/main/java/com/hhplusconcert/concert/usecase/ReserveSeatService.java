@@ -13,18 +13,10 @@ import java.time.LocalDateTime;
 public class ReserveSeatService {
     private final ReservationRepository reservationRepository;
 
-    public Output execute(Long concertScheduleId, Long seatId, Input input) {
-        Reservation reservation = new Reservation(null, input.getUserId(), concertScheduleId, seatId, null, ReservationStatus.RESERVED, LocalDateTime.now());
+    public Output execute(Long concertScheduleId, Long seatId, Long userId) {
+        Reservation reservation = new Reservation(null, userId, concertScheduleId, seatId, null, ReservationStatus.RESERVED, LocalDateTime.now());
         Reservation saved = reservationRepository.save(reservation);
         return new Output(saved.getId());
-    }
-
-    @Getter
-    @Setter
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class Input {
-        Long userId;
     }
 
     @AllArgsConstructor
