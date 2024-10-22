@@ -16,7 +16,7 @@ import java.util.Map;
 @Slf4j
 public class JwtTokenProvider {
 
-    public static final String TOKEN_ID = "tokenId";
+    public static final String QUEUE_TOKEN_ID = "queueTokenId";
     private final RSAPrivateKey PRIVATE_KEY;
     private final RSAPublicKey PUBLIC_KEY;
 
@@ -30,7 +30,7 @@ public class JwtTokenProvider {
         Date expiryDate = new Date(System.currentTimeMillis() + 3600000); // 1시간 유효
 
         return JWT.create()
-                .withClaim(TOKEN_ID, tokenId)
+                .withClaim(QUEUE_TOKEN_ID, tokenId)
                 .withExpiresAt(expiryDate)
                 .sign(Algorithm.RSA256(PUBLIC_KEY, PRIVATE_KEY));
     }
