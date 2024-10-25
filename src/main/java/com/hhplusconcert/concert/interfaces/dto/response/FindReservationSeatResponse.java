@@ -11,7 +11,7 @@ public record FindReservationSeatResponse(
         Long seatId,
         Integer position,
         Integer price,
-        boolean available
+        boolean isReserved
 ) {
     public static List<FindReservationSeatResponse> fromOutput(List<FindReservationSeatService.Output> outputs) {
         List<FindReservationSeatResponse> response = outputs.stream().map(output -> {
@@ -19,7 +19,7 @@ public record FindReservationSeatResponse(
                     .seatId(output.getSeatId())
                     .position(output.getPosition())
                     .price(output.getPrice())
-                    .available(output.isAvailable())
+                    .isReserved(output.isReserved())
                     .build();
             return res;
         }).collect(Collectors.toList());
