@@ -1,7 +1,9 @@
 package com.hhplusconcert.concert.aop;
 
 import com.hhplusconcert.concert.token.JwtTokenProvider;
-import com.hhplusconcert.shared.SharedHttpHeader;
+import com.hhplusconcert.shared.error.ApplicationException;
+import com.hhplusconcert.shared.error.ErrorType;
+import com.hhplusconcert.shared.header.SharedHttpHeader;
 import jakarta.servlet.http.HttpServletRequest;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -23,11 +25,11 @@ public class ConcertTokenAspect {
         String token = request.getHeader(SharedHttpHeader.X_QUEUE_TOKEN);
 
         if (token == null || token.isEmpty()) {
-            throw new RuntimeException("토큰이 존재하지 않습니다. ");
+            throw new ApplicationException(ErrorType.Token.TOKEN_NOT_CONTAINED);
         }
 
         if (!isValidToken(token)) {
-            throw new RuntimeException("유효하지 않은 토큰입니다.");
+            throw new ApplicationException(ErrorType.Token.TOKEN_NOT_VALID);
         }
 
 //        request.setAttribute(QUEUE_TOKEN, token);

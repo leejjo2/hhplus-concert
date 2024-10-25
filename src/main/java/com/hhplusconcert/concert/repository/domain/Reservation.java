@@ -1,14 +1,18 @@
 package com.hhplusconcert.concert.repository.domain;
 
 import com.hhplusconcert.concert.repository.domain.vo.ReservationStatus;
+import com.hhplusconcert.shared.error.ApplicationException;
+import com.hhplusconcert.shared.error.ErrorType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.Set;
 
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Reservation {
@@ -24,11 +28,11 @@ public class Reservation {
         if (Set.of(ReservationStatus.TEMP_RESERVED, ReservationStatus.RESERVED).contains(status)) {
             return true;
         } else if (ReservationStatus.PAID.equals(status)) {
-            throw new RuntimeException("이미 결제되었습니다.");
+            throw new ApplicationException(ErrorType.Concert.RESERVATION_ALREADY_PAID);
         } else if (ReservationStatus.CANCELED.equals(status)) {
-            throw new RuntimeException("취소된 예약입니다.");
+            throw new ApplicationException(ErrorType.Concert.RESERVATION_ALREADY_CANCELED);
         } else {
-            throw new RuntimeException();
+            throw new ApplicationException(ErrorType.INVALID_REQUEST);
         }
     }
 
