@@ -23,7 +23,7 @@ public class ConcertScheduler {
     private final ConcertQueueRepository concertQueueRepository;
     private final ConcertScheduleRepository concertScheduleRepository;
     private final int SCHEDULING_INTERVAL = 5000; // 5 초
-    private final int PASS_THROUGH_SIZE = 1; // 1 명
+    private final int PASS_THROUGH_SIZE = 3; // 1 명
 
     private void updateConcertQueueStatuses() {
 

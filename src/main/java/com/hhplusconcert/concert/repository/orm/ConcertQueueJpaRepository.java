@@ -3,6 +3,8 @@ package com.hhplusconcert.concert.repository.orm;
 import com.hhplusconcert.concert.repository.domain.entity.ConcertQueueEntity;
 import com.hhplusconcert.concert.repository.domain.vo.ConcertQueueStatus;
 import jakarta.persistence.LockModeType;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.jpa.repository.Query;
@@ -37,6 +39,12 @@ public interface ConcertQueueJpaRepository extends JpaRepository<ConcertQueueEnt
             String status,
             int limit,
             int offset
+    );
+
+    Page<ConcertQueueEntity> findByConcertScheduleIdAndStatusOrderByEnteredAtAsc(
+            Long concertScheduleId,
+            ConcertQueueStatus status,
+            Pageable pageable
     );
 
     @Query(value = "SELECT * FROM concert_queue WHERE status = ?1 AND expired_at < ?2", nativeQuery = true)

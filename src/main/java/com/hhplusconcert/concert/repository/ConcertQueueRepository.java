@@ -7,6 +7,8 @@ import com.hhplusconcert.concert.repository.orm.ConcertQueueJpaRepository;
 import com.hhplusconcert.shared.error.ApplicationException;
 import com.hhplusconcert.shared.error.ErrorType;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
@@ -66,7 +68,9 @@ public class ConcertQueueRepository {
     public List<ConcertQueue> findByConcertScheduleIdAndStatusOrderByEnteredAtAsc(
             Long concertScheduleId, ConcertQueueStatus status, int limit, int offset
     ) {
-        return concertQueueJpaRepository.findByConcertScheduleIdAndStatusOrderByEnteredAtAsc(concertScheduleId, status.name(), limit, offset)
+        Pageable pageable = PageRequest.of(offset, limit);
+//        return concertQueueJpaRepository.findByConcertScheduleIdAndStatusOrderByEnteredAtAsc(concertScheduleId, status.name(), limit, offset)
+        return concertQueueJpaRepository.findByConcertScheduleIdAndStatusOrderByEnteredAtAsc(concertScheduleId, status, pageable).getContent()
                 .stream().map(ConcertQueueEntity::toDomain).collect(Collectors.toList());
     }
 
