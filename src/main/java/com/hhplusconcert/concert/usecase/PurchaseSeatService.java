@@ -5,6 +5,8 @@ import com.hhplusconcert.concert.repository.ReservationRepository;
 import com.hhplusconcert.concert.repository.domain.Payment;
 import com.hhplusconcert.concert.repository.domain.Reservation;
 import com.hhplusconcert.concert.repository.domain.vo.PaymentStatus;
+import com.hhplusconcert.shared.error.ApplicationException;
+import com.hhplusconcert.shared.error.ErrorType;
 import com.hhplusconcert.user.repository.UserRepository;
 import com.hhplusconcert.user.repository.domain.User;
 import lombok.AllArgsConstructor;
@@ -38,7 +40,7 @@ public class PurchaseSeatService {
 
             return new Output(savedPayment.getId());
         } else {
-            throw new RuntimeException("에러 발생.");
+            throw new ApplicationException(ErrorType.INVALID_REQUEST);
         }
 
     }

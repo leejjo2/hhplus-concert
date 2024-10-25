@@ -1,6 +1,6 @@
 package com.hhplusconcert.user.interfaces;
 
-import com.hhplusconcert.shared.SharedHttpHeader;
+import com.hhplusconcert.shared.header.SharedHttpHeader;
 import com.hhplusconcert.user.interfaces.dto.request.ChargeCashRequest;
 import com.hhplusconcert.user.interfaces.dto.response.ChargeCashResponse;
 import com.hhplusconcert.user.interfaces.dto.response.FindCashResponse;

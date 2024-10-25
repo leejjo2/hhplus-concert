@@ -5,6 +5,8 @@ import com.hhplusconcert.concert.repository.ConcertQueueRepository;
 import com.hhplusconcert.concert.repository.domain.ConcertQueue;
 import com.hhplusconcert.concert.repository.domain.vo.ConcertQueueStatus;
 import com.hhplusconcert.concert.token.JwtTokenProvider;
+import com.hhplusconcert.shared.error.ApplicationException;
+import com.hhplusconcert.shared.error.ErrorType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -35,7 +37,7 @@ public class FindQueueService {
                 return new Output(0L);
             }
             default -> {
-                throw new RuntimeException("유효하지 않은 대기열입니다.");
+                throw new ApplicationException(ErrorType.WaitingQueue.INVALID_STATUS);
             }
         }
     }

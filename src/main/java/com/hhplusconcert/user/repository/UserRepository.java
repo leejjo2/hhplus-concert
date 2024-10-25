@@ -1,5 +1,7 @@
 package com.hhplusconcert.user.repository;
 
+import com.hhplusconcert.shared.error.ApplicationException;
+import com.hhplusconcert.shared.error.ErrorType;
 import com.hhplusconcert.user.repository.domain.User;
 import com.hhplusconcert.user.repository.domain.entity.UserEntity;
 import com.hhplusconcert.user.repository.orm.UserJpaRepository;
@@ -23,7 +25,7 @@ public class UserRepository {
     public User findById(Long id) {
         return userJpaRepository.findById(id)
                 .map(UserEntity::toDomain)
-                .orElseThrow(() -> new RuntimeException("ID가 " + id + "인 사용자를 찾을 수 없습니다."));
+                .orElseThrow(() -> new ApplicationException(ErrorType.User.USER_NOT_FOUND));
     }
 
     // 사용자를 저장하는 메소드

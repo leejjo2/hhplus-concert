@@ -6,6 +6,8 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.hhplusconcert.shared.error.ApplicationException;
+import com.hhplusconcert.shared.error.ErrorType;
 import lombok.extern.slf4j.Slf4j;
 
 import java.security.interfaces.RSAPrivateKey;
@@ -48,7 +50,7 @@ public class JwtTokenProvider {
         } catch (JWTVerificationException e) {
             // 검증 실패 시 예외 처리
             log.info("Invalid Token: " + e.getMessage());
-            throw new RuntimeException("토큰 검증 중 예외가 발생했습니다.");
+            throw new ApplicationException(ErrorType.Token.TOKEN_NOT_VALID);
         }
     }
 
@@ -59,14 +61,14 @@ public class JwtTokenProvider {
             String claimValue = decodedJWT.getClaim(claimKey).asString();
 
             if (claimValue == null || claimValue.isEmpty()) {
-                throw new RuntimeException("Claim not found for key: " + claimKey);
+                throw new ApplicationException(ErrorType.Token.TOKEN_NOT_VALID);
             }
 
             return claimValue;
 
         } catch (Exception e) {
             log.error("Failed to extract claim for key: " + claimKey + ". Error: " + e.getMessage());
-            throw new RuntimeException("Failed to extract claim for key: " + claimKey);
+            throw new ApplicationException(ErrorType.Token.TOKEN_NOT_VALID);
         }
     }
 
@@ -78,7 +80,7 @@ public class JwtTokenProvider {
 
         } catch (Exception e) {
             log.error("Failed to extract all claims: " + e.getMessage());
-            throw new RuntimeException("Failed to extract all claims");
+            throw new ApplicationException(ErrorType.Token.TOKEN_NOT_VALID);
         }
     }
 
