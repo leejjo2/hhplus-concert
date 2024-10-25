@@ -4,7 +4,8 @@ import com.hhplusconcert.concert.aop.ConcertTokenRequired;
 import com.hhplusconcert.concert.interfaces.dto.request.PurchaseSeatRequest;
 import com.hhplusconcert.concert.interfaces.dto.response.*;
 import com.hhplusconcert.concert.usecase.*;
-import com.hhplusconcert.shared.SharedHttpHeader;
+import com.hhplusconcert.shared.header.SharedHttpHeader;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +16,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/v1/concerts")
-public class ConcertController implements ConcertControllerInterface {
+public class ConcertController implements IConcertController {
     private final CreateQueueService createQueueService;
     private final FindQueueService findQueueService;
     private final FindAvailableReservationDateService findAvailableReservationDateService;
@@ -87,7 +88,7 @@ public class ConcertController implements ConcertControllerInterface {
             @RequestHeader(SharedHttpHeader.X_USER_ID) Long userId,
             @RequestHeader(SharedHttpHeader.X_QUEUE_TOKEN) String queueToken,
             @PathVariable("reservationId") Long reservationId,
-            @RequestBody PurchaseSeatRequest request
+            @Valid @RequestBody PurchaseSeatRequest request
     ) {
         PurchaseSeatService.Output output = purchaseSeatService.execute(reservationId, userId, request.toInput());
         return ResponseEntity.status(HttpStatus.CREATED).body(PurchaseSeatResponse.fromOutput(output));

@@ -14,7 +14,7 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 
 //@Tag(name = "Concert", description = "콘서트 관련 API")
-public interface ConcertControllerInterface {
+public interface IConcertController {
 
     @Tag(name = "Queue", description = "대기열 관련 API")
     @Operation(
