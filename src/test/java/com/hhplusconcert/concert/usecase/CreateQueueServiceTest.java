@@ -4,7 +4,6 @@ import com.hhplusconcert.concert.repository.ConcertQueueRepository;
 import com.hhplusconcert.concert.repository.domain.ConcertQueue;
 import com.hhplusconcert.concert.repository.domain.vo.ConcertQueueStatus;
 import com.hhplusconcert.concert.token.JwtTokenProvider;
-import com.hhplusconcert.concert.usecase.CreateQueueService.Input;
 import com.hhplusconcert.concert.usecase.CreateQueueService.Output;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,8 +11,6 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-
-import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -41,16 +38,14 @@ class CreateQueueServiceTest {
         // given
         Long concertScheduleId = 1L;
         Long userId = 2L;
-        String tokenId = UUID.randomUUID().toString();
         String expectedToken = "generatedToken";
 
-        Input input = new Input(userId);
 
         // Mocking the behavior of jwtTokenProvider and repository
         when(jwtTokenProvider.generateToken(any())).thenReturn(expectedToken);
 
         // when
-        Output result = createQueueService.execute(concertScheduleId, input);
+        Output result = createQueueService.execute(concertScheduleId, userId);
 
         // then
         // Verify that concertQueueRepository.create was called with the correct ConcertQueue
