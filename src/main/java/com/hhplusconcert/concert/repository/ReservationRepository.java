@@ -4,6 +4,8 @@ import com.hhplusconcert.concert.repository.domain.Reservation;
 import com.hhplusconcert.concert.repository.domain.entity.ReservationEntity;
 import com.hhplusconcert.concert.repository.domain.vo.ReservationStatus;
 import com.hhplusconcert.concert.repository.orm.ReservationJpaRepository;
+import com.hhplusconcert.shared.error.ApplicationException;
+import com.hhplusconcert.shared.error.ErrorType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -33,6 +35,6 @@ public class ReservationRepository {
     public Reservation findById(Long id) {
         return reservationJpaRepository.findById(id)
                 .map(ReservationEntity::toDomain)
-                .orElseThrow(() -> new RuntimeException("ID가 " + id + "인 예약을 찾을 수 없습니다."));
+                .orElseThrow(() -> new ApplicationException(ErrorType.Concert.RESERVATION_NOT_FOUND));
     }
 }

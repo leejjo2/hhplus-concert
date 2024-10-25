@@ -3,6 +3,8 @@ package com.hhplusconcert.concert.repository;
 import com.hhplusconcert.concert.repository.domain.Payment;
 import com.hhplusconcert.concert.repository.domain.entity.PaymentEntity;
 import com.hhplusconcert.concert.repository.orm.PaymentJpaRepository;
+import com.hhplusconcert.shared.error.ApplicationException;
+import com.hhplusconcert.shared.error.ErrorType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -15,7 +17,7 @@ public class PaymentRepository {
     public Payment findById(Long id) {
         return paymentJpaRepository.findById(id)
                 .map(PaymentEntity::toDomain)
-                .orElseThrow(() -> new RuntimeException("ID가 " + id + "인 결제를 찾을 수 없습니다."));
+                .orElseThrow(() -> new ApplicationException(ErrorType.Payment.PAYMENT_NOT_FOUND));
     }
 
     // 결제를 저장하는 메소드
