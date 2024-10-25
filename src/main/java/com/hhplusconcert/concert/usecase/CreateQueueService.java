@@ -17,12 +17,12 @@ public class CreateQueueService {
     private final JwtTokenProvider jwtTokenProvider;
     private final ConcertQueueRepository concertQueueRepository;
 
-    public Output execute(Long concertScheduleId, Input input) {
+    public Output execute(Long concertScheduleId, Long userId) {
 
         String tokenId = UUID.randomUUID().toString();
         ConcertQueue concertQueue = new ConcertQueue(
                 null,
-                input.userId,
+                userId,
                 concertScheduleId,
                 tokenId,
                 ConcertQueueStatus.WAITING,
@@ -33,13 +33,6 @@ public class CreateQueueService {
         return new Output(jwtTokenProvider.generateToken(tokenId));
     }
 
-    @Getter
-    @Setter
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class Input {
-        Long userId;
-    }
 
     @AllArgsConstructor
     @NoArgsConstructor

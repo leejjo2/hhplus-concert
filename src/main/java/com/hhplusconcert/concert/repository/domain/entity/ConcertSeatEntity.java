@@ -18,6 +18,11 @@ public class ConcertSeatEntity {
     private Long concertScheduleId;
     private int amount;
     private int position;
+    @Column(nullable = false)
+    private Boolean isReserved;
+
+    @Version
+    private Long version;
 
     public static ConcertSeat toDomain(ConcertSeatEntity entity) {
         if (entity == null) {
@@ -27,7 +32,9 @@ public class ConcertSeatEntity {
                 entity.getId(),
                 entity.getConcertScheduleId(),
                 entity.getAmount(),
-                entity.getPosition()
+                entity.getPosition(),
+                entity.getIsReserved(),
+                entity.getVersion()
         );
     }
 
@@ -39,7 +46,9 @@ public class ConcertSeatEntity {
                 domain.getId(),
                 domain.getConcertScheduleId(),
                 domain.getAmount(),
-                domain.getPosition()
+                domain.getPosition(),
+                domain.getIsReserved(),
+                domain.getVersion()
         );
     }
 }

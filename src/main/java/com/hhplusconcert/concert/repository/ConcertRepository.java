@@ -3,6 +3,8 @@ package com.hhplusconcert.concert.repository;
 import com.hhplusconcert.concert.repository.domain.Concert;
 import com.hhplusconcert.concert.repository.domain.entity.ConcertEntity;
 import com.hhplusconcert.concert.repository.orm.ConcertJpaRepository;
+import com.hhplusconcert.shared.error.ApplicationException;
+import com.hhplusconcert.shared.error.ErrorType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -23,6 +25,6 @@ public class ConcertRepository {
     public Concert findById(Long id) {
         return concertJpaRepository.findById(id)
                 .map(ConcertEntity::toDomain)
-                .orElseThrow(() -> new RuntimeException("ID가 " + id + "인 콘서트를 찾을 수 없습니다."));
+                .orElseThrow(() -> new ApplicationException(ErrorType.Concert.CONCERT_NOT_FOUND));
     }
 }

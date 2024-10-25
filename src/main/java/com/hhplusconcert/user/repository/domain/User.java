@@ -1,5 +1,7 @@
 package com.hhplusconcert.user.repository.domain;
 
+import com.hhplusconcert.shared.error.ApplicationException;
+import com.hhplusconcert.shared.error.ErrorType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,11 +18,11 @@ public class User {
 
     public void deductAmount(int amountToDeduct) {
         if (amountToDeduct <= 0) {
-            throw new RuntimeException("차감 금액은 0보다 커야 합니다.");
+            throw new ApplicationException(ErrorType.User.AMOUNT_MUST_BE_POSITIVE);
         }
 
         if (this.amount < amountToDeduct) {
-            throw new RuntimeException("잔액이 부족합니다.");
+            throw new ApplicationException(ErrorType.User.NOT_ENOUGH_BALANCE);
         }
 
         this.amount -= amountToDeduct;
@@ -28,7 +30,7 @@ public class User {
 
     public void chargeAmount(int amountToCharge) {
         if (amountToCharge <= 0) {
-            throw new RuntimeException("충전 금액은 0보다 커야 합니다.");
+            throw new ApplicationException(ErrorType.User.AMOUNT_MUST_BE_POSITIVE);
         }
 
         this.amount += amountToCharge;

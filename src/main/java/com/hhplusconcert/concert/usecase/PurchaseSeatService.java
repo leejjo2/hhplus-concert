@@ -5,6 +5,8 @@ import com.hhplusconcert.concert.repository.ReservationRepository;
 import com.hhplusconcert.concert.repository.domain.Payment;
 import com.hhplusconcert.concert.repository.domain.Reservation;
 import com.hhplusconcert.concert.repository.domain.vo.PaymentStatus;
+import com.hhplusconcert.shared.error.ApplicationException;
+import com.hhplusconcert.shared.error.ErrorType;
 import com.hhplusconcert.user.repository.UserRepository;
 import com.hhplusconcert.user.repository.domain.User;
 import lombok.AllArgsConstructor;
@@ -22,12 +24,12 @@ public class PurchaseSeatService {
     private final ReservationRepository reservationRepository;
     private final UserRepository userRepository;
 
-    public Output execute(Long reservationId, Input input) {
-        User user = userRepository.findById(input.getUserId());
+    public Output execute(Long reservationId, Long useId, Input input) {
+        User user = userRepository.findById(useId);
         Reservation reservation = reservationRepository.findById(reservationId);
 
         if (reservation.isPayable()) {
-            Payment payment = new Payment(null, input.getUserId(), input.getPurchaseAmount(), PaymentStatus.PROGRESS, LocalDateTime.now());
+            Payment payment = new Payment(null, useId, input.getPurchaseAmount(), PaymentStatus.PROGRESS, LocalDateTime.now());
             Payment savedPayment = paymentRepository.save(payment);
 
             reservation.pay(savedPayment.getId());
@@ -38,7 +40,7 @@ public class PurchaseSeatService {
 
             return new Output(savedPayment.getId());
         } else {
-            throw new RuntimeException("에러 발생.");
+            throw new ApplicationException(ErrorType.INVALID_REQUEST);
         }
 
     }
@@ -46,7 +48,6 @@ public class PurchaseSeatService {
     @Getter
     @AllArgsConstructor
     public static class Input {
-        Long userId;
         Integer purchaseAmount;
     }
 

@@ -4,6 +4,8 @@ import com.hhplusconcert.concert.repository.domain.ConcertQueue;
 import com.hhplusconcert.concert.repository.domain.entity.ConcertQueueEntity;
 import com.hhplusconcert.concert.repository.domain.vo.ConcertQueueStatus;
 import com.hhplusconcert.concert.repository.orm.ConcertQueueJpaRepository;
+import com.hhplusconcert.shared.error.ApplicationException;
+import com.hhplusconcert.shared.error.ErrorType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -19,7 +21,7 @@ public class ConcertQueueRepository {
     public ConcertQueue findById(Long id) {
         return concertQueueJpaRepository.findById(id)
                 .map(ConcertQueueEntity::toDomain)
-                .orElseThrow(() -> new RuntimeException("ID가 " + id + "인 대기열 정보를 찾을 수 없습니다."));
+                .orElseThrow(() -> new ApplicationException(ErrorType.WaitingQueue.WAITING_QUEUE_NOT_FOUND));
     }
 
     public void updateAll(List<ConcertQueue> concertQueues) {
@@ -39,7 +41,7 @@ public class ConcertQueueRepository {
     public ConcertQueue findByIdForUpdate(Long id) {
         return concertQueueJpaRepository.findByIdForUpdate(id)
                 .map(ConcertQueueEntity::toDomain)
-                .orElseThrow(() -> new RuntimeException("ID가 " + id + "인 대기열 정보를 업데이트하기 위해 찾을 수 없습니다."));
+                .orElseThrow(() -> new ApplicationException(ErrorType.WaitingQueue.WAITING_QUEUE_NOT_FOUND));
     }
 
     public List<ConcertQueue> findByConcertScheduleIdAndStatusAndEnteredAtBefore(
@@ -58,7 +60,7 @@ public class ConcertQueueRepository {
     public ConcertQueue findByToken(String token) {
         return concertQueueJpaRepository.findByToken(token)
                 .map(ConcertQueueEntity::toDomain)
-                .orElseThrow(() -> new RuntimeException("토큰이 " + token + "인 대기열 정보를 찾을 수 없습니다."));
+                .orElseThrow(() -> new ApplicationException(ErrorType.WaitingQueue.WAITING_QUEUE_NOT_FOUND));
     }
 
     public List<ConcertQueue> findByConcertScheduleIdAndStatusOrderByEnteredAtAsc(

@@ -4,6 +4,8 @@ import com.hhplusconcert.concert.repository.domain.ConcertSchedule;
 import com.hhplusconcert.concert.repository.domain.entity.ConcertScheduleEntity;
 import com.hhplusconcert.concert.repository.domain.vo.ConcertScheduleStatus;
 import com.hhplusconcert.concert.repository.orm.ConcertScheduleJpaRepository;
+import com.hhplusconcert.shared.error.ApplicationException;
+import com.hhplusconcert.shared.error.ErrorType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -35,9 +37,13 @@ public class ConcertScheduleRepository {
                 .collect(Collectors.toList()));
     }
 
+    public void save(ConcertSchedule concertSchedule) {
+        concertScheduleJpaRepository.save(ConcertScheduleEntity.fromDomain(concertSchedule));
+    }
+
     public ConcertSchedule findById(Long id) {
         return concertScheduleJpaRepository.findById(id)
                 .map(ConcertScheduleEntity::toDomain)
-                .orElseThrow(() -> new RuntimeException("ID가 " + id + "인 콘서트 스케줄을 찾을 수 없습니다."));
+                .orElseThrow(() -> new ApplicationException(ErrorType.Concert.CONCERT_SCHEDULE_NOT_FOUND));
     }
 }
