@@ -5,10 +5,7 @@ import com.hhplusconcert.concert.repository.ReservationRepository;
 import com.hhplusconcert.concert.repository.domain.ConcertSeat;
 import com.hhplusconcert.concert.repository.domain.Reservation;
 import com.hhplusconcert.concert.repository.domain.vo.ReservationStatus;
-import com.hhplusconcert.shared.error.ApplicationException;
 import lombok.*;
-import org.springframework.retry.annotation.Backoff;
-import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,11 +17,6 @@ public class ReserveSeatService {
     private final ReservationRepository reservationRepository;
     private final ConcertSeatRepository concertSeatRepository;
 
-    @Retryable(
-            retryFor = RuntimeException.class,
-            noRetryFor = ApplicationException.class,
-            backoff = @Backoff(50)
-    )
     @Transactional
     public Output execute(Long concertScheduleId, Long seatId, Long userId) {
         ConcertSeat concertSeat = concertSeatRepository.findByIdWithLock(seatId);

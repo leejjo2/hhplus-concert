@@ -18,7 +18,6 @@ public class ConcertSeat {
     private int position;
     private Boolean isReserved;
 
-    private Long version;
 
 
     public void reserve() {

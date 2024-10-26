@@ -40,7 +40,7 @@ public class ReserveSeatServiceTest {
     @BeforeEach
     public void setup() {
         // 테스트 좌석 및 스케줄 생성
-        testSeat = new ConcertSeat(null, concertScheduleId, 100, 1, false, 0L);  // 초기 예약되지 않은 좌석
+        testSeat = new ConcertSeat(null, concertScheduleId, 100, 1, false);  // 초기 예약되지 않은 좌석
         concertSeatRepository.save(testSeat);
     }
 
