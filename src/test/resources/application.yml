@@ -1,22 +1,76 @@
 spring:
-  config:
-    activate:
-      on-profile: test
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
+  application:
+    name: hhplus-concert
   datasource:
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem:testdb # H2 DB 연결 주소 (In-Memory Mode)
-    username: sa # H2 DB 접속 ID (사용자 지정)
-    password: password # H2 DB 접속 PW (사용자 지정)
+    url: jdbc:mysql://localhost:3306/example_db
+    username: user
+    password: 1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
+    show-sql: true
     hibernate:
-      ddl-auto: create
+      #      ddl-auto: update
+      #      ddl-auto: create
+      ddl-auto: create-drop
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.H2Dialect
-        show_sql: true # SQL 쿼리 출력 여부
-        format_sql: true # SQL 쿼리 포맷팅 여부
+        dialect: org.hibernate.dialect.MySQL8Dialect
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+    enabled: true
+  info:
+    title: "HHPlus Concert API"
+    version: "v1"
+    description: "HHPlus Concert API 명세서"
+server:
+  port: 8081
+
+security:
+  rsa:
+    concert-queue:
+      private-key: |
+        -----BEGIN PRIVATE KEY-----
+        MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDPN4gumDh1CxMW
+        5C/C4ExMaOEI1cZU+RxDrmQU6PawEehBlxgaLGbmxbDJnv+/A4tzZ59/hjfBXIEQ
+        /haOxfSNkarAws6yAIf3LzXve/pD0Oh0Sy5ZBuIyzHYeAaWy916WJHGF0jc1ayUV
+        5s0+Ewkh5knm9RDLth032Gy0RQw/Jxvz2TvJV/idUbckkk5MHQq6WUyKbxivD3N7
+        3FAPLDs6E9sNa9fT34Ytb2p+CEotS3ZYfY7o6VM59gttlemA3FmEH9dHe+bRPvf5
+        ZPWcv34kWgWl5z8sXSSg6hlpp48A5ryQ/Vi2ZNQypFelRu/0bTYCNa7eLd3Eor3L
+        R5oC59H9AgMBAAECggEAZXG2RblXylUFn2tOxoSwVafyozSkx+y8nZW+gU4bls7t
+        eU7TCd068zdM+SfR5F2D45eTSgcXPJ5gwUTjHjpjIvtxMLUuI46HAcgnC3sSZijb
+        5DL6GbN5AY1/NelwiVD5CWAGA5GKXah6m2JGkGEZU3M+Msc+1bvuSey2KvqyqCdH
+        gNVT/ZdzMNek7/e6hbKfCVq3cDLzzgUcMAVuDcAiRn0MoXx0Xc5ZHHJis9YKcC5C
+        T8PxV5b8GwNrmky96yIRVp7xF89356UXXcEHBYcYcnrAm1v4w8EnuWwUG0mTz6FN
+        o+390UnkukFvuSeq9sDXf8WcqHghlyTmjtDrNzCrMQKBgQDywd8SnrrwIeV1aURn
+        5kvyilWNu3cDcB1tphB28ukjM8Tmq5F30+U7fHtqkiaK3vFzxTBqVXakRXuJMbq/
+        JWpxIsTfhPK03H3X+couUWATie1beFvc/oD9Y6OuwPwMskKgF8AiT7D2bnNIL+F0
+        4Crf8oNKMmepIQPNT8T8Q1+t5wKBgQDahVXx/e9nFFfAmgrS+zUdMtdX8357bxFY
+        zuvgG0mCQLhx20kcCEEXMCStwFeYgpfHrH9GQFXlvTxAUCbuzXMmEaBbIAOYmw/W
+        mbFmobibQ0yxJpUFbstOQJiOiap2hT2mZ9kDd/i5sym8XCfRVFEIFcizAjqem1Wt
+        lpx76oYcewKBgQDIT82AkdXzXCT5Mzms+k1k/10FLNFR1uuRlNw1Ks/RqmApbx0D
+        4adf5KH6GEsRgFGAlBAVThwuBN+hH5XXMEqavHPzdMLJFsAIvSdl/OPoe4GOXsx+
+        mMtbSyK/iqLw3w83ByIVreh6ED20LT4+sNLwJC7NxLXgy0tV2SLUfcuvtQKBgBau
+        7pv/IyHNH8rTcrox73KHe4kaso93mRJh8GREEN5ff4X6IF2zkaYpjjUnGTCwpbbJ
+        djDBruj5Os7mQxRY6VITVFUBPr5RolRBggPIV9RuKQDeo2t788i8tdld+v7wl9S1
+        RPayNnR4X6W43z1AhmTTdhD280TRlRQ+5SGL174PAoGAWPoy7iA5ACPPBnzC6wBQ
+        ZXo/Z9wCZ0geXkDz91KWy2iK1j00AAmBkbW6OLLyPU+NvTvOzX18Mci036rQLPrQ
+        /Z5gmyhKOZqkCYpn7rxXLyvSUlpvg2wWIoykM/9fE8fjHdy4KCdJBK4aGHudULsl
+        k4eo/AJuPppeQUTgDA6E4v8=
+        -----END PRIVATE KEY-----
+
+      public-key: |
+        -----BEGIN PUBLIC KEY-----
+        MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzzeILpg4dQsTFuQvwuBM
+        TGjhCNXGVPkcQ65kFOj2sBHoQZcYGixm5sWwyZ7/vwOLc2eff4Y3wVyBEP4WjsX0
+        jZGqwMLOsgCH9y8173v6Q9DodEsuWQbiMsx2HgGlsvdeliRxhdI3NWslFebNPhMJ
+        IeZJ5vUQy7YdN9hstEUMPycb89k7yVf4nVG3JJJOTB0KullMim8Yrw9ze9xQDyw7
+        OhPbDWvX09+GLW9qfghKLUt2WH2O6OlTOfYLbZXpgNxZhB/XR3vm0T73+WT1nL9+
+        JFoFpec/LF0koOoZaaePAOa8kP1YtmTUMqRXpUbv9G02AjWu3i3dxKK9y0eaAufR
+        /QIDAQAB
+        -----END PUBLIC KEY-----
+
+logging:
+  level:
+    root: INFO       # 전체 애플리케이션 기본 로깅 레벨 설정
+    com.example.myapp: DEBUG  # 특정 패키지에 대해 DEBUG 레벨 설정

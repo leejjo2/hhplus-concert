@@ -1,65 +1,62 @@
 package com.hhplusconcert.concert.usecase;
 
+import com.hhplusconcert.TestMockData;
 import com.hhplusconcert.concert.repository.ConcertQueueRepository;
 import com.hhplusconcert.concert.repository.domain.ConcertQueue;
 import com.hhplusconcert.concert.repository.domain.vo.ConcertQueueStatus;
 import com.hhplusconcert.concert.token.JwtTokenProvider;
-import com.hhplusconcert.concert.usecase.CreateQueueService.Output;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
+@SpringBootTest
+@Transactional
 class CreateQueueServiceTest {
 
-    @Mock
+    TestMockData testMockData = new TestMockData();
+    @Autowired
+    private CreateQueueService createQueueService;
+    @Autowired
+    private ConcertQueueRepository concertQueueRepository;
+    @Autowired
     private JwtTokenProvider jwtTokenProvider;
 
-    @Mock
-    private ConcertQueueRepository concertQueueRepository;
-
-    @InjectMocks
-    private CreateQueueService createQueueService;
-
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
-    }
-
     @Test
-    void execute_shouldCreateConcertQueueAndReturnToken() {
+    void shouldCreateQueueAndReturnToken() {
         // given
-        Long concertScheduleId = 1L;
-        Long userId = 2L;
-        String expectedToken = "generatedToken";
-
-
-        // Mocking the behavior of jwtTokenProvider and repository
-        when(jwtTokenProvider.generateToken(any())).thenReturn(expectedToken);
+        Long concertScheduleId = TestMockData.Concert.concertScheduleId; // 테스트에 사용할 콘서트 스케줄 ID
+        Long userId = TestMockData.User.userId; // 사용자 ID
 
         // when
-        Output result = createQueueService.execute(concertScheduleId, userId);
+        CreateQueueService.Output output = createQueueService.execute(concertScheduleId, userId);
 
         // then
-        // Verify that concertQueueRepository.create was called with the correct ConcertQueue
-        ArgumentCaptor<ConcertQueue> concertQueueCaptor = ArgumentCaptor.forClass(ConcertQueue.class);
-        verify(concertQueueRepository).create(concertQueueCaptor.capture());
+        // 반환된 토큰이 유효한지 검증 (예외 발생 여부 확인)
+        String token = output.getToken();
 
-        ConcertQueue capturedConcertQueue = concertQueueCaptor.getValue();
-        assertThat(capturedConcertQueue.getConcertScheduleId()).isEqualTo(concertScheduleId);
-        assertThat(capturedConcertQueue.getUserId()).isEqualTo(userId);
-        assertThat(capturedConcertQueue.getStatus()).isEqualTo(ConcertQueueStatus.WAITING);
-        assertThat(capturedConcertQueue.getEnteredAt()).isNotNull();
+        // try-catch로 예외 발생 여부 확인
+        try {
+            jwtTokenProvider.verifyToken(token);
+        } catch (RuntimeException e) {
+            // 검증에 실패한 경우 테스트 실패 처리
+            throw new AssertionError("토큰 검증 중 예외가 발생했습니다.", e);
+        }
 
-        // Verify the token generation
-        verify(jwtTokenProvider).generateToken(any(String.class));
-        assertThat(result.getToken()).isEqualTo(expectedToken);
+        String tokenId = jwtTokenProvider.getClaimValue(token, JwtTokenProvider.QUEUE_TOKEN_ID);
+
+        // 콘서트 큐 대기열이 생성되었는지 검증 (Optional 대신 객체로 직접 받음)
+        ConcertQueue concertQueue = concertQueueRepository.findByToken(tokenId);
+        assertThat(concertQueue).isNotNull(); // 대기열이 null이 아님을 검증
+
+        assertThat(concertQueue.getUserId()).isEqualTo(userId);
+        assertThat(concertQueue.getConcertScheduleId()).isEqualTo(concertScheduleId);
+        assertThat(concertQueue.getStatus()).isEqualTo(ConcertQueueStatus.WAITING);
+        assertThat(concertQueue.getEnteredAt()).isBeforeOrEqualTo(LocalDateTime.now());
+        assertThat(concertQueue.getToken()).isEqualTo(tokenId);
     }
 }
