@@ -29,8 +29,8 @@ class CreateQueueServiceTest {
     @Test
     void shouldCreateQueueAndReturnToken() {
         // given
-        Long concertScheduleId = TestMockData.Concert.concertScheduleId; // 테스트에 사용할 콘서트 스케줄 ID
-        Long userId = TestMockData.User.userId; // 사용자 ID
+        Long concertScheduleId = TestMockData.Concert.ConcertSchedule.concertScheduleId_1; // 테스트에 사용할 콘서트 스케줄 ID
+        Long userId = TestMockData.User.userId_123; // 사용자 ID
 
         // when
         CreateQueueService.Output output = createQueueService.execute(concertScheduleId, userId);

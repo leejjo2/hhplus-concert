@@ -18,8 +18,8 @@ public class FindAvailableReservationDateService {
 
     private final ConcertScheduleRepository concertScheduleRepository;
 
-    public Output execute(Long concertScheduleId) {
-        List<ConcertSchedule> availableConcertSchedules = concertScheduleRepository.findAllByIdAndStatus(concertScheduleId, ConcertScheduleStatus.AVAILABLE);
+    public Output execute(Long concertId) {
+        List<ConcertSchedule> availableConcertSchedules = concertScheduleRepository.findAllByConcertIdAndStatus(concertId, ConcertScheduleStatus.AVAILABLE);
         return new Output(availableConcertSchedules.stream().map(ConcertSchedule::getOpenDate).collect(Collectors.toList()));
     }
 

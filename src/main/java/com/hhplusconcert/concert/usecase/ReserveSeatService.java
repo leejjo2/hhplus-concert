@@ -21,6 +21,7 @@ public class ReserveSeatService {
     public Output execute(Long concertScheduleId, Long seatId, Long userId) {
         ConcertSeat concertSeat = concertSeatRepository.findByIdWithLock(seatId);
         concertSeat.reserve();
+        concertSeatRepository.save(concertSeat);
 
         Reservation reservation = new Reservation(null, userId, concertScheduleId, seatId, null, ReservationStatus.RESERVED, LocalDateTime.now());
         Reservation saved = reservationRepository.save(reservation);

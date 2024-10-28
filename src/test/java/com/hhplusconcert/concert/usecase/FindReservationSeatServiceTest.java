@@ -1,8 +1,7 @@
-package com.hhplusconcert.concert.usecase.integration;
+package com.hhplusconcert.concert.usecase;
 
 import com.hhplusconcert.concert.repository.ConcertSeatRepository;
 import com.hhplusconcert.concert.repository.domain.ConcertSeat;
-import com.hhplusconcert.concert.usecase.FindReservationSeatService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

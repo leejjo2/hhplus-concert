@@ -1,6 +1,5 @@
 package com.hhplusconcert.concert.usecase;
 
-import com.hhplusconcert.concert.aop.QueueTokenHolder;
 import com.hhplusconcert.concert.repository.ConcertQueueRepository;
 import com.hhplusconcert.concert.repository.domain.ConcertQueue;
 import com.hhplusconcert.concert.repository.domain.vo.ConcertQueueStatus;
@@ -21,10 +20,9 @@ public class FindQueueService {
     private final ConcertQueueRepository concertQueueRepository;
     private final JwtTokenProvider jwtTokenProvider;
 
-    public Output execute(Long concertScheduleId) {
+    public Output execute(String queueToken, Long concertScheduleId) {
 
-        String token = QueueTokenHolder.getToken();
-        String queueTokenId = jwtTokenProvider.getClaimValue(token, JwtTokenProvider.QUEUE_TOKEN_ID);
+        String queueTokenId = jwtTokenProvider.getClaimValue(queueToken, JwtTokenProvider.QUEUE_TOKEN_ID);
 
         log.info("tokenId : {}", queueTokenId);
         ConcertQueue concertQueue = concertQueueRepository.findByToken(queueTokenId);

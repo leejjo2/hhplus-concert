@@ -13,5 +13,7 @@ public interface ConcertScheduleJpaRepository extends JpaRepository<ConcertSched
 
     List<ConcertScheduleEntity> findAllByIdAndStatus(Long id, ConcertScheduleStatus concertScheduleStatus);
 
+    List<ConcertScheduleEntity> findAllByConcertIdAndStatus(Long concertId, ConcertScheduleStatus concertScheduleStatus);
+
     Optional<ConcertScheduleEntity> findById(Long id);
 }

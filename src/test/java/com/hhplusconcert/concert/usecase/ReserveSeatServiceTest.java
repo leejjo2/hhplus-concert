@@ -1,12 +1,12 @@
-package com.hhplusconcert.concert.usecase.integration;
+package com.hhplusconcert.concert.usecase;
 
 import com.hhplusconcert.concert.repository.ConcertSeatRepository;
 import com.hhplusconcert.concert.repository.ReservationRepository;
 import com.hhplusconcert.concert.repository.domain.ConcertSeat;
 import com.hhplusconcert.concert.repository.domain.Reservation;
 import com.hhplusconcert.concert.repository.domain.vo.ReservationStatus;
-import com.hhplusconcert.concert.usecase.ReserveSeatService;
 import com.hhplusconcert.shared.error.ApplicationException;
+import com.hhplusconcert.shared.error.ErrorType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,8 +40,7 @@ public class ReserveSeatServiceTest {
     @BeforeEach
     public void setup() {
         // 테스트 좌석 및 스케줄 생성
-        testSeat = new ConcertSeat(null, concertScheduleId, 100, 1, false);  // 초기 예약되지 않은 좌석
-        concertSeatRepository.save(testSeat);
+        testSeat = concertSeatRepository.save(new ConcertSeat(null, concertScheduleId, 100, 1, false));
     }
 
     @Test
@@ -69,7 +68,9 @@ public class ReserveSeatServiceTest {
         concertSeatRepository.save(testSeat);
 
         // when & then
-        assertThrows(ApplicationException.class, () ->
+        ApplicationException applicationException = assertThrows(ApplicationException.class, () ->
                 reserveSeatService.execute(concertScheduleId, testSeat.getId(), userId));
+
+        assertThat(applicationException.getMessage()).isEqualTo(ErrorType.Concert.CONCERT_SEAT_ALREADY_RESERVED.getMessage());
     }
 }

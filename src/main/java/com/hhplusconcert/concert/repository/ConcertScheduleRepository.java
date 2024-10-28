@@ -24,8 +24,8 @@ public class ConcertScheduleRepository {
                 .collect(Collectors.toList());
     }
 
-    public List<ConcertSchedule> findAllByIdAndStatus(Long id, ConcertScheduleStatus concertScheduleStatus) {
-        return concertScheduleJpaRepository.findAllByIdAndStatus(id, concertScheduleStatus)
+    public List<ConcertSchedule> findAllByConcertIdAndStatus(Long id, ConcertScheduleStatus concertScheduleStatus) {
+        return concertScheduleJpaRepository.findAllByConcertIdAndStatus(id, concertScheduleStatus)
                 .stream()
                 .map(ConcertScheduleEntity::toDomain)
                 .collect(Collectors.toList());

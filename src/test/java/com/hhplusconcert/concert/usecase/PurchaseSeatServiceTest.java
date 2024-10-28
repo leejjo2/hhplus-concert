@@ -1,4 +1,4 @@
-package com.hhplusconcert.concert.usecase.integration;
+package com.hhplusconcert.concert.usecase;
 
 import com.hhplusconcert.concert.repository.PaymentRepository;
 import com.hhplusconcert.concert.repository.ReservationRepository;
@@ -6,7 +6,6 @@ import com.hhplusconcert.concert.repository.domain.Payment;
 import com.hhplusconcert.concert.repository.domain.Reservation;
 import com.hhplusconcert.concert.repository.domain.vo.PaymentStatus;
 import com.hhplusconcert.concert.repository.domain.vo.ReservationStatus;
-import com.hhplusconcert.concert.usecase.PurchaseSeatService;
 import com.hhplusconcert.shared.error.ApplicationException;
 import com.hhplusconcert.user.repository.UserRepository;
 import com.hhplusconcert.user.repository.domain.User;
@@ -45,12 +44,10 @@ public class PurchaseSeatServiceTest {
     @BeforeEach
     public void setup() {
         // 사용자 생성
-        testUser = new User(null, "testuser", 1000);  // 사용자 초기 금액 1000
-        userRepository.save(testUser);
+        testUser = userRepository.save(new User(null, "testuser", 1000));
 
         // 예약 생성
-        testReservation = new Reservation(null, testUser.getId(), 1L, 1L, null, ReservationStatus.RESERVED, LocalDateTime.now());  // 결제 가능한 상태의 예약
-        reservationRepository.save(testReservation);
+        testReservation = reservationRepository.save(new Reservation(null, testUser.getId(), 1L, 1L, null, ReservationStatus.RESERVED, LocalDateTime.now()));
     }
 
     @Test
