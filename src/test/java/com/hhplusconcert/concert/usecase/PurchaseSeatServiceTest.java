@@ -7,6 +7,7 @@ import com.hhplusconcert.concert.repository.domain.Reservation;
 import com.hhplusconcert.concert.repository.domain.vo.PaymentStatus;
 import com.hhplusconcert.concert.repository.domain.vo.ReservationStatus;
 import com.hhplusconcert.shared.error.ApplicationException;
+import com.hhplusconcert.shared.error.ErrorType;
 import com.hhplusconcert.user.repository.UserRepository;
 import com.hhplusconcert.user.repository.domain.User;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @SpringBootTest
 @Transactional
@@ -80,8 +81,9 @@ public class PurchaseSeatServiceTest {
         PurchaseSeatService.Input input = new PurchaseSeatService.Input(500);
 
         // when & then
-        assertThrows(ApplicationException.class, () ->
-                purchaseSeatService.execute(testReservation.getId(), testUser.getId(), input));
+        assertThatThrownBy(() -> purchaseSeatService.execute(testReservation.getId(), testUser.getId(), input))
+                .isInstanceOf(ApplicationException.class)
+                .hasMessage(ErrorType.Concert.RESERVATION_ALREADY_PAID.getMessage());
     }
 
     @Test
@@ -90,7 +92,8 @@ public class PurchaseSeatServiceTest {
         PurchaseSeatService.Input input = new PurchaseSeatService.Input(1500);  // 사용자의 금액을 초과하는 결제 시도
 
         // when & then
-        assertThrows(ApplicationException.class, () ->
-                purchaseSeatService.execute(testReservation.getId(), testUser.getId(), input));
+        assertThatThrownBy(() -> purchaseSeatService.execute(testReservation.getId(), testUser.getId(), input))
+                .isInstanceOf(ApplicationException.class)
+                .hasMessage(ErrorType.User.NOT_ENOUGH_BALANCE.getMessage());
     }
 }
