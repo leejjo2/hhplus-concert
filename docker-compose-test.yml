@@ -20,7 +20,7 @@ services:
     image: phpmyadmin/phpmyadmin
     container_name: phpmyadmin_test
     environment:
-      PMA_HOST: mysql
+      PMA_HOST: mysql_test
       MYSQL_ROOT_PASSWORD: 1234
     ports:
       - "8083:80"

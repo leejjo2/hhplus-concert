@@ -53,4 +53,8 @@ public class Reservation {
             default -> throw new ApplicationException(ErrorType.INVALID_REQUEST);
         }
     }
+
+    public void expire() {
+        this.status = ReservationStatus.CANCELED;
+    }
 }

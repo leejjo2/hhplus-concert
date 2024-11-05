@@ -69,7 +69,6 @@ public class ConcertQueueRepository {
             Long concertScheduleId, ConcertQueueStatus status, int limit, int offset
     ) {
         Pageable pageable = PageRequest.of(offset, limit);
-//        return concertQueueJpaRepository.findByConcertScheduleIdAndStatusOrderByEnteredAtAsc(concertScheduleId, status.name(), limit, offset)
         return concertQueueJpaRepository.findByConcertScheduleIdAndStatusOrderByEnteredAtAsc(concertScheduleId, status, pageable).getContent()
                 .stream().map(ConcertQueueEntity::toDomain).collect(Collectors.toList());
     }
@@ -77,7 +76,7 @@ public class ConcertQueueRepository {
     public List<ConcertQueue> findByStatusAndExpiredAtBefore(
             ConcertQueueStatus status, LocalDateTime now
     ) {
-        return concertQueueJpaRepository.findByStatusAndExpiredAtBefore(status.name(), now)
+        return concertQueueJpaRepository.findByStatusAndExpiredAtBefore(status, now)
                 .stream().map(ConcertQueueEntity::toDomain).collect(Collectors.toList());
     }
 

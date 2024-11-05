@@ -2,13 +2,11 @@ package com.hhplusconcert.concert.repository.domain;
 
 import com.hhplusconcert.shared.error.ApplicationException;
 import com.hhplusconcert.shared.error.ErrorType;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class ConcertSeat {
