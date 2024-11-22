@@ -2,14 +2,10 @@ spring:
   application:
     name: hhplus-concert
   datasource:
-    url: jdbc:mysql://localhost:3306/example_db
+    url: jdbc:mysql://localhost:3307/example_db
     username: user
     password: 1234
     driver-class-name: com.mysql.cj.jdbc.Driver
-  #    initialization-mode: always
-  sql:
-    init:
-      mode: always
   jpa:
     show-sql: true
     hibernate:
@@ -19,7 +15,6 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
-    defer-datasource-initialization: true
 springdoc:
   api-docs:
     path: /v3/api-docs
@@ -29,7 +24,7 @@ springdoc:
     version: "v1"
     description: "HHPlus Concert API 명세서"
 server:
-  port: 8081
+  port: 8082
 
 security:
   rsa:

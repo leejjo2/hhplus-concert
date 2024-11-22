@@ -9,13 +9,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.Set;
+import java.util.EnumSet;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Reservation {
+
     private Long id;
     private Long userId;
     private Long concertScheduleId;
@@ -24,21 +25,36 @@ public class Reservation {
     private ReservationStatus status;
     private LocalDateTime reservedAt;
 
+    private static final EnumSet<ReservationStatus> PAYABLE_STATUSES = EnumSet.of(
+            ReservationStatus.TEMP_RESERVED,
+            ReservationStatus.RESERVED
+    );
+
     public boolean isPayable() {
-        if (Set.of(ReservationStatus.TEMP_RESERVED, ReservationStatus.RESERVED).contains(status)) {
+        if (PAYABLE_STATUSES.contains(status)) {
             return true;
-        } else if (ReservationStatus.PAID.equals(status)) {
-            throw new ApplicationException(ErrorType.Concert.RESERVATION_ALREADY_PAID);
-        } else if (ReservationStatus.CANCELED.equals(status)) {
-            throw new ApplicationException(ErrorType.Concert.RESERVATION_ALREADY_CANCELED);
-        } else {
-            throw new ApplicationException(ErrorType.INVALID_REQUEST);
         }
+        handleInvalidPayableState();  // 예외를 던지므로 반환값 필요 없음
+        return false;
     }
 
     public void pay(Long paymentId) {
+        if (!isPayable()) {
+            throw new ApplicationException(ErrorType.INVALID_REQUEST);
+        }
         this.paymentId = paymentId;
         this.status = ReservationStatus.PAID;
     }
 
+    private void handleInvalidPayableState() {
+        switch (status) {
+            case PAID -> throw new ApplicationException(ErrorType.Concert.RESERVATION_ALREADY_PAID);
+            case CANCELED -> throw new ApplicationException(ErrorType.Concert.RESERVATION_ALREADY_CANCELED);
+            default -> throw new ApplicationException(ErrorType.INVALID_REQUEST);
+        }
+    }
+
+    public void expire() {
+        this.status = ReservationStatus.CANCELED;
+    }
 }

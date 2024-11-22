@@ -20,4 +20,13 @@ public class ConcertQueue {
     private ConcertQueueStatus status;
     private LocalDateTime enteredAt;
     private LocalDateTime expiredAt;
+
+    public void toProgress() {
+        this.setStatus(ConcertQueueStatus.PROGRESS);
+        this.setExpiredAt(LocalDateTime.now().plusMinutes(30));
+    }
+
+    public void expire() {
+        this.setStatus(ConcertQueueStatus.EXPIRED);
+    }
 }

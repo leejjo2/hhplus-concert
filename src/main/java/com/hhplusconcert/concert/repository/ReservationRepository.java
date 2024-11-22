@@ -9,6 +9,7 @@ import com.hhplusconcert.shared.error.ErrorType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -26,6 +27,13 @@ public class ReservationRepository {
     // 특정 콘서트 스케줄 ID와 상태 집합에 따른 예약을 찾는 메소드
     public List<Reservation> findByConcertScheduleIdAndStatusIn(Long concertScheduleId, Set<ReservationStatus> statusSet) {
         return reservationJpaRepository.findByConcertScheduleIdAndStatusIn(concertScheduleId, statusSet)
+                .stream()
+                .map(ReservationEntity::toDomain)
+                .collect(Collectors.toList());
+    }
+
+    public List<Reservation> findByStatusAndReservedAtBefore(ReservationStatus status, LocalDateTime reservedAt) {
+        return reservationJpaRepository.findByStatusAndReservedAtBeforeWithLock(status, reservedAt)
                 .stream()
                 .map(ReservationEntity::toDomain)
                 .collect(Collectors.toList());

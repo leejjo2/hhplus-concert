@@ -17,8 +17,8 @@ public class ConcertSeatRepository {
     private final ConcertSeatJpaRepository concertSeatJpaRepository;
 
     // 여러 콘서트 좌석을 저장하는 메소드
-    public void save(ConcertSeat concertSeat) {
-        concertSeatJpaRepository.save(ConcertSeatEntity.fromDomain(concertSeat));
+    public ConcertSeat save(ConcertSeat concertSeat) {
+        return ConcertSeatEntity.toDomain(concertSeatJpaRepository.save(ConcertSeatEntity.fromDomain(concertSeat)));
     }
 
     public void saveAll(List<ConcertSeat> concertSeats) {

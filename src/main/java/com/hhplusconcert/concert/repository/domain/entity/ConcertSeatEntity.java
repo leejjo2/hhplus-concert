@@ -21,8 +21,6 @@ public class ConcertSeatEntity {
     @Column(nullable = false)
     private Boolean isReserved;
 
-    @Version
-    private Long version;
 
     public static ConcertSeat toDomain(ConcertSeatEntity entity) {
         if (entity == null) {
@@ -33,8 +31,7 @@ public class ConcertSeatEntity {
                 entity.getConcertScheduleId(),
                 entity.getAmount(),
                 entity.getPosition(),
-                entity.getIsReserved(),
-                entity.getVersion()
+                entity.getIsReserved()
         );
     }
 
@@ -47,8 +44,7 @@ public class ConcertSeatEntity {
                 domain.getConcertScheduleId(),
                 domain.getAmount(),
                 domain.getPosition(),
-                domain.getIsReserved(),
-                domain.getVersion()
+                domain.getIsReserved()
         );
     }
 }

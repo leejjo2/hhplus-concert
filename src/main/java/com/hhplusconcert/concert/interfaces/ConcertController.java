@@ -42,18 +42,18 @@ public class ConcertController implements IConcertController {
             @RequestHeader(SharedHttpHeader.X_QUEUE_TOKEN) String queueToken,
             @PathVariable("concertScheduleId") Long concertScheduleId
     ) {
-        FindQueueService.Output output = findQueueService.execute(concertScheduleId);
+        FindQueueService.Output output = findQueueService.execute(queueToken, concertScheduleId);
         return ResponseEntity.ok(FindQueueResponse.fromOutput(output));
     }
 
     @Override
     @ConcertTokenRequired
-    @GetMapping("/{concertScheduleId}/reservation/available-date")
+    @GetMapping("/{concertId}/reservation/available-date")
     public ResponseEntity<FindAvailableReservationDateResponse> findReservationDate(
             @RequestHeader(SharedHttpHeader.X_QUEUE_TOKEN) String queueToken,
-            @PathVariable("concertScheduleId") Long concertScheduleId
+            @PathVariable("concertId") Long concertId
     ) {
-        FindAvailableReservationDateService.Output output = findAvailableReservationDateService.execute(concertScheduleId);
+        FindAvailableReservationDateService.Output output = findAvailableReservationDateService.execute(concertId);
         return ResponseEntity.ok(FindAvailableReservationDateResponse.fromOutput(output));
     }
 
